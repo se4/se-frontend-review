@@ -1,4 +1,4 @@
-# se-frontend-review
+# learn-typescript
 
 ## Project setup
 ```

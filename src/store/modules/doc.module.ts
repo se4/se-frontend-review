@@ -1,0 +1,45 @@
+import * as ACTIONS from '@/store/type/actions.type.ts';
+import * as MUTATIONS from '@/store/type/mutations.type.ts';
+import { fetchDocList, fetchDoc, fetchCheckList } from '@/api/doc.api';
+import { ActionTree, MutationTree, Module } from 'vuex';
+
+const docState: DocState = {
+  docList: [],
+  docDetail: {},
+  checkList: []
+};
+
+const actions: ActionTree<DocState, RootState> = {
+  async [ACTIONS.FETCH_DOC_LIST](context) {
+    const { data } = await fetchDocList();
+    await context.commit(MUTATIONS.SET_DOC_LIST, data);
+  },
+  async [ACTIONS.FETCH_THE_DOC](context, docId: number) {
+    const { data } = await fetchDoc(docId);
+    context.commit(MUTATIONS.SET_THE_DOC, data);
+  },
+  async [ACTIONS.FETCH_CHECK_LIST](context, docId: number) {
+    const { data } = await fetchCheckList(docId);
+    context.commit(MUTATIONS.SET_CHECK_LIST, data);
+  }
+};
+
+const mutations: MutationTree<DocState> = {
+  [MUTATIONS.SET_DOC_LIST](state, docList: DocSimpleSerializer[]) {
+    state.docList = docList;
+  },
+  [MUTATIONS.SET_THE_DOC](state, docDetail: DocSerializer) {
+    state.docDetail = docDetail;
+  },
+  [MUTATIONS.SET_CHECK_LIST](state, checkList: CheckListItemSerializer[]) {
+    state.checkList = checkList;
+  }
+};
+
+const doc: Module<DocState, RootState> = {
+  state: docState,
+  actions,
+  mutations
+};
+
+export default doc;

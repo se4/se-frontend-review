@@ -1,58 +1,36 @@
 <template>
-  <el-container class="outer-container">
-    <div class="header-container">
-      <mooc-header/>
-    </div>
-    <el-main>
-      <div class="container">
-        <router-view/>
-      </div>
-    </el-main>
-    <el-footer>
-      <div class="author">
-        @NJU software
-      </div>
-    </el-footer>
-  </el-container>
-
+  <section class="main-body">
+    <default-header/>
+    <router-view class="body-section"/>
+    <footer class="footer">
+      <div class="content has-text-centered">@nju software</div>
+    </footer>
+  </section>
 </template>
 
-<script>
-import MoocHeader from "@/components/MoocHeader";
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import DefaultHeader from '@/layout/DefaultHeader/index.vue'; // @ is an alias to /src
+import { fetchDocList } from '@/api/doc.api';
 
-export default {
-  name: "DefaultLayout",
-  components: { MoocHeader }
-};
+@Component({
+  components: {
+    DefaultHeader
+  }
+})
+export default class DefaultLayout extends Vue {}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
-@import "../style/config";
-.logo {
-  text-align: center;
-  padding: 20vh 0 0;
-  color: $logo-color;
-  font-size: $logo-font-size;
-  font-family: $logo-font-family;
-}
-
-.header-container {
-  height: 70px;
-  width: 100%;
-}
-
-.outer-container {
+<style lang="scss">
+@import 'bulma/sass/utilities/_all.sass';
+.main-body {
   min-height: 100vh;
-  background-color: $oc-gray-1;
-}
-.container {
-  width: 100%;
-  height: 100%;
-}
-
-.author {
-  color: $footer-color;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background: $white-bis;
+  .body-section {
+    flex: 1;
+  }
 }
 </style>
+
