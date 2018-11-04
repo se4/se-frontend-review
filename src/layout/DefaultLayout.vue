@@ -13,6 +13,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import DefaultHeader from '@/layout/DefaultHeader/index.vue'; // @ is an alias to /src
 import { fetchDocList } from '@/api/doc.api';
 
+
 @Component({
   components: {
     DefaultHeader
