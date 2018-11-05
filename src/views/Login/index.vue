@@ -1,33 +1,15 @@
 <template>
   <div>
-    <div class="intro">Sign Up</div>
+    <div class="intro">Sign In</div>
     <div class="columns is-multiline">
       <form @submit.prevent="submit" style="width:100%">
-        <div class="column is-12">
-          <label class="label">{{nicknameLabel}}</label>
-          <p class="control has-icon has-icon-right">
-            <input
-              :name="nicknameLabel"
-              v-model="credentials.nickname"
-              v-validate="'min:3|max:11|alpha_num'"
-              :class="{'input': true, 'is-danger': errors.has(nicknameLabel) }"
-              type="text"
-              placeholder="nickname"
-            >
-            <i v-show="errors.has(nicknameLabel)" class="fa fa-warning"></i>
-            <span
-              v-show="errors.has(nicknameLabel)"
-              class="help is-danger"
-            >{{ errors.first(nicknameLabel) }}</span>
-          </p>
-        </div>
         <div class="column is-12">
           <label class="label">{{usernameLabel}}</label>
           <p class="control has-icon has-icon-right">
             <input
               :name="usernameLabel"
               v-model="credentials.username"
-              v-validate="'min:6|max:11|alpha_num|required'"
+              v-validate="'required'"
               :class="{'input': true, 'is-danger': errors.has(usernameLabel) }"
               type="username"
               placeholder="username"
@@ -45,7 +27,7 @@
             <input
               :name="passwordLabel"
               v-model="credentials.password"
-              v-validate="'min:6|max:11|alpha_num|required'"
+              v-validate="'required'"
               :class="{'input': true, 'is-danger': errors.has(passwordLabel) }"
               type="password"
               placeholder="password"
@@ -58,42 +40,24 @@
           </p>
         </div>
         <div class="column is-12">
-          <label class="label">{{passwordAgainLabel}}</label>
-          <p class="control has-icon has-icon-right">
-            <input
-              :name="passwordAgainLabel"
-              v-model="passwordAgain"
-              v-validate="'required|truthy'"
-              :class="{'input': true, 'is-danger': errors.has(passwordAgainLabel) }"
-              type="password"
-              placeholder="password"
-            >
-            <i v-show="errors.has(passwordAgainLabel)" class="fa fa-warning"></i>
-            <span
-              v-show="errors.has(passwordAgainLabel)"
-              class="help is-danger"
-            >{{ errors.first(passwordAgainLabel) }}</span>
-          </p>
-        </div>
-        <div class="column is-12">
           <p class="control level">
             <button
               style="width:40%"
               :class="{'button':true, 'is-link':true, 'is-loading':submiting}"
               type="submit"
-            >注 册</button>
+            >登 陆</button>
             <router-link
-              :to="{name:'login'}"
+              :to="{name:'register'}"
               :class="{'button':true, 'is-text':true, 'is-loading':submiting}"
               type="submit"
-            >已有账户，登陆</router-link>
+            >没有账户，注册</router-link>
           </p>
         </div>
       </form>
     </div>
-    <div v-show="isRegisterError" class="notification is-danger">
+    <div v-show="isLoginError" class="notification is-danger">
       <button @click="closeError" class="delete"></button>
-      <strong>用户名已注册</strong>
+      <strong>用户名或密码错误</strong>
     </div>
   </div>
 </template>
@@ -103,28 +67,24 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Validator } from 'vee-validate';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 import { mapState } from 'vuex';
-import { REGISTER } from '@/store/type/actions.type';
-import { SET_REGISTER_ERROR } from '@/store/type/mutations.type';
+import { REGISTER, LOGIN } from '@/store/type/actions.type';
+import { SET_LOGIN_ERROR } from '@/store/type/mutations.type';
 import { LOGIN_ROUTER } from '@/router/name';
 
 @Component
-export default class Register extends Vue {
-  public credentials: RegisterInfo = {
+export default class Login extends Vue {
+  public credentials: LoginInfo = {
     username: '',
-    password: '',
-    nickname: ''
+    password: ''
   };
 
-  public passwordAgain = '';
   public submiting = false;
 
   public usernameLabel = '用户名';
   public passwordLabel = '密码';
-  public passwordAgainLabel = '再次输入密码';
-  public nicknameLabel = '昵称';
 
-  @State((state: RootState) => state.auth.isRegisterError)
-  public isRegisterError: boolean;
+  @State((state: RootState) => state.auth.isLoginError)
+  public isLoginError: boolean;
 
   public mounted() {
     Validator.extend('truthy', {
@@ -134,18 +94,16 @@ export default class Register extends Vue {
   }
 
   public closeError() {
-    this.$store.commit(SET_REGISTER_ERROR, false);
+    this.$store.commit(SET_LOGIN_ERROR, false);
   }
 
   public submit() {
     this.$validator.validateAll().then(async result => {
       if (result) {
-        // eslint-disable-next-line
         this.submiting = true;
-        await this.$store.dispatch(REGISTER, this.credentials);
-        if (!this.isRegisterError) {
-          // tslint:disable-next-line:no-console
-          this.$router.push({name:'login'})
+        await this.$store.dispatch(LOGIN, this.credentials);
+        if (!this.isLoginError) {
+          this.$router.push({ name: 'home' });
         } else {
           this.submiting = false;
         }

@@ -20,6 +20,7 @@ const actions: ActionTree<AuthState, RootState> = {
       } = await login(credentials);
       context.commit(MUTATIONS.SET_PROFILE, data);
       context.commit(MUTATIONS.SET_AUTH, true);
+      context.commit(MUTATIONS.SET_LOGIN_ERROR, false);
       saveToken(Authorization, data);
     } catch (e) {
       context.commit(MUTATIONS.SET_LOGIN_ERROR, true);
@@ -32,6 +33,7 @@ const actions: ActionTree<AuthState, RootState> = {
   async [ACTIONS.REGISTER](context, credentials: RegisterInfo) {
     try {
       await register(credentials);
+      context.commit(MUTATIONS.SET_REGISTER_ERROR, false);
     } catch (e) {
       context.commit(MUTATIONS.SET_REGISTER_ERROR, true);
     }
