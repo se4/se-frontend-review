@@ -2,57 +2,100 @@
   <div>
     <div class="intro">Sign Up</div>
     <div class="columns is-multiline">
-      <div class="column is-12">
-        <label class="label">用户名</label>
-        <p class="control has-icon has-icon-right">
-          <input
-            name="用户名"
-            v-model="credentials.username"
-            v-validate="'required|between:6,11|alpha_num|unique'"
-            :class="{'input': true, 'is-danger': errors.has('用户名') }"
-            type="username"
-            placeholder="username"
-          >
-          <i v-show="errors.has('用户名')" class="fa fa-warning"></i>
-          <span v-show="errors.has('用户名')" class="help is-danger">{{ errors.first('用户名') }}</span>
-        </p>
-      </div>
-      <div class="column is-12">
-        <label class="label">密码</label>
-        <p class="control has-icon has-icon-right">
-          <input
-            name="password"
-            v-model="credentials.password"
-            v-validate="'required|between:6,11|alpha_num'"
-            :class="{'input': true, 'is-danger': errors.has('credentials.password') }"
-            type="password"
-            placeholder="password"
-          >
-          <i v-show="errors.has('credentials.password')" class="fa fa-warning"></i>
-          <span
-            v-show="errors.has('credentials.password')"
-            class="help is-danger"
-          >{{ errors.first('credentials.password') }}</span>
-        </p>
-      </div>
-      <div class="column is-12">
-        <p class="control">
-          <button class="button is-primary" type="button" @click="submit">Submit</button>
-        </p>
-      </div>
+      <form @submit.prevent="submit" style="width:100%">
+        <div class="column is-12">
+          <label class="label">{{nicknameLabel}}</label>
+          <p class="control has-icon has-icon-right">
+            <input
+              :name="nicknameLabel"
+              v-model="credentials.nickname"
+              v-validate="'min:3|max:11|alpha_num'"
+              :class="{'input': true, 'is-danger': errors.has(nicknameLabel) }"
+              type="text"
+              placeholder="nickname"
+            >
+            <i v-show="errors.has(nicknameLabel)" class="fa fa-warning"></i>
+            <span
+              v-show="errors.has(nicknameLabel)"
+              class="help is-danger"
+            >{{ errors.first(nicknameLabel) }}</span>
+          </p>
+        </div>
+        <div class="column is-12">
+          <label class="label">{{usernameLabel}}</label>
+          <p class="control has-icon has-icon-right">
+            <input
+              :name="usernameLabel"
+              v-model="credentials.username"
+              v-validate="'min:6|max:11|alpha_num|required'"
+              :class="{'input': true, 'is-danger': errors.has(usernameLabel) }"
+              type="username"
+              placeholder="username"
+            >
+            <i v-show="errors.has(usernameLabel)" class="fa fa-warning"></i>
+            <span
+              v-show="errors.has(usernameLabel)"
+              class="help is-danger"
+            >{{ errors.first(usernameLabel) }}</span>
+          </p>
+        </div>
+        <div class="column is-12">
+          <label class="label">{{passwordLabel}}</label>
+          <p class="control has-icon has-icon-right">
+            <input
+              :name="passwordLabel"
+              v-model="credentials.password"
+              v-validate="'min:6|max:11|alpha_num|required'"
+              :class="{'input': true, 'is-danger': errors.has(passwordLabel) }"
+              type="password"
+              placeholder="password"
+            >
+            <i v-show="errors.has(passwordLabel)" class="fa fa-warning"></i>
+            <span
+              v-show="errors.has(passwordLabel)"
+              class="help is-danger"
+            >{{ errors.first(passwordLabel) }}</span>
+          </p>
+        </div>
+        <div class="column is-12">
+          <label class="label">{{passwordAgainLabel}}</label>
+          <p class="control has-icon has-icon-right">
+            <input
+              :name="passwordAgainLabel"
+              v-model="passwordAgain"
+              v-validate="'required|truthy'"
+              :class="{'input': true, 'is-danger': errors.has(passwordAgainLabel) }"
+              type="password"
+              placeholder="password"
+            >
+            <i v-show="errors.has(passwordAgainLabel)" class="fa fa-warning"></i>
+            <span
+              v-show="errors.has(passwordAgainLabel)"
+              class="help is-danger"
+            >{{ errors.first(passwordAgainLabel) }}</span>
+          </p>
+        </div>
+        <div class="column is-12">
+          <p class="control">
+            <button
+              :class="{'button':true, 'is-primary':true, 'is-loading':submiting}"
+              type="submit"
+            >注 册</button>
+          </p>
+        </div>
+      </form>
     </div>
-    <div class="notification is-danger">
-      <button class="delete"></button>
-      <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum
-      <a>felis venenatis</a>efficitur. Sit amet,
-      consectetur adipiscing elit
+    <div v-show="isRegisterError" class="notification is-danger">
+      <button @click="closeError" class="delete"></button>
+      <strong>用户名已注册</strong>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import VeeValidate from 'vee-validate';
+import { Validator } from 'vee-validate';
+import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 import { mapState } from 'vuex';
 import { REGISTER } from '@/store/type/actions.type';
 import { SET_REGISTER_ERROR } from '@/store/type/mutations.type';
@@ -66,33 +109,43 @@ export default class DefaultLayout extends Vue {
     nickname: ''
   };
 
-  public submit() {
-    // tslint:disable-next-line:no-console
-    console.log(this.credentials);
-  }
+  public passwordAgain = '';
+  public submiting = false;
+
+  public usernameLabel = '用户名';
+  public passwordLabel = '密码';
+  public passwordAgainLabel = '再次输入密码';
+  public nicknameLabel = '昵称';
+
+  @State((state: RootState) => state.auth.isRegisterError)
+  public isRegisterError: boolean;
 
   public mounted() {
-    //       const isUnique = value =>
-    //     new Promise(resolve => {
-    //       setTimeout(() => {
-    //         if (emailsDB.indexOf(value) === -1) {
-    //           return resolve({
-    //             valid: true
-    //           });
-    //         }
-    //         return resolve({
-    //           valid: false,
-    //           data: {
-    //             message: `${value} is already taken.`
-    //           }
-    //         });
-    //       }, 200);
-    //     });
-    //   Validator.extend('unique', {
-    //     validate: isUnique,
-    //     getMessage: (field, params, data) => data.message
-    //   });
-    // },
+    Validator.extend('truthy', {
+      getMessage: (field: string): string => '两次输入的密码不相同',
+      validate: (value: string): boolean => value === this.credentials.password
+    });
+  }
+
+  public closeError() {
+    this.$store.commit(SET_REGISTER_ERROR, false);
+  }
+
+  public submit() {
+    this.$validator.validateAll().then(async result => {
+      if (result) {
+        // eslint-disable-next-line
+        this.submiting = true;
+        await this.$store.dispatch(REGISTER, this.credentials);
+        if (!this.isRegisterError) {
+          // tslint:disable-next-line:no-console
+          console.log('success');
+        }
+
+        this.submiting = false;
+        return;
+      }
+    });
   }
 }
 </script>
