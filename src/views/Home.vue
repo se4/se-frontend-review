@@ -43,7 +43,6 @@ export default class Home extends Vue {
 
 <style lang="scss" scoped>
 @import 'bulma/sass/utilities/_all.sass';
-@import 'bulma/sass/s';
 .active-background {
   background-color: $white-bis;
 }

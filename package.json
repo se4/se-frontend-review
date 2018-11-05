@@ -13,6 +13,7 @@
   "dependencies": {
     "@types/vue-markdown": "^2.2.1",
     "bulma": "^0.7.2",
+    "vee-validate": "^2.1.2",
     "vue": "^2.5.17",
     "vue-class-component": "^6.0.0",
     "vue-markdown": "^2.2.4",
