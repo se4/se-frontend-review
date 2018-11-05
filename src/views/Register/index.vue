@@ -52,7 +52,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-
+import VeeValidate from 'vee-validate';
 import { mapState } from 'vuex';
 import { REGISTER } from '@/store/type/actions.type';
 import { SET_REGISTER_ERROR } from '@/store/type/mutations.type';
@@ -69,6 +69,30 @@ export default class DefaultLayout extends Vue {
   public submit() {
     // tslint:disable-next-line:no-console
     console.log(this.credentials);
+  }
+
+  public mounted() {
+    //       const isUnique = value =>
+    //     new Promise(resolve => {
+    //       setTimeout(() => {
+    //         if (emailsDB.indexOf(value) === -1) {
+    //           return resolve({
+    //             valid: true
+    //           });
+    //         }
+    //         return resolve({
+    //           valid: false,
+    //           data: {
+    //             message: `${value} is already taken.`
+    //           }
+    //         });
+    //       }, 200);
+    //     });
+    //   Validator.extend('unique', {
+    //     validate: isUnique,
+    //     getMessage: (field, params, data) => data.message
+    //   });
+    // },
   }
 }
 </script>
