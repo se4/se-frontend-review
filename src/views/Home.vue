@@ -15,7 +15,7 @@
               <p>
                 <strong>{{item.filename}}</strong>
               </p>
-              <div>{{item.owners.name}}</div>
+              <div>{{item.owner.name}}</div>
             </div>
           </router-link>
         </div>

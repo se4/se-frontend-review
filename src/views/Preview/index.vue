@@ -9,19 +9,14 @@
           </div>
         </div>
         <div class="column is-4">
-          <div v-for="item in checkList" :key="item.id" class="field">
+          <div v-for="item in checkList" :key="item.fid" class="field">
             <div class="label">{{item.content}}</div>
             <div class="control">
-              <label class="radio">
-                <input type="radio" name="question">
-                无
-              </label>
-              <label class="radio">
-                <input type="radio" name="question">
-                有
-              </label>
+              <checkbox v-model="item.level" label="有"/>
             </div>
+            <textarea v-model="item.comment" class="textarea" placeholder="e.g. Hello world"></textarea>
           </div>
+          <div @click="submit" style="width:100%" class="button is-primary">提 交</div>
         </div>
       </div>
     </div>
@@ -31,13 +26,19 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import VueMarkdown from 'vue-markdown';
-import { FETCH_THE_DOC, FETCH_CHECK_LIST } from '@/store/type/actions.type';
+import {
+  FETCH_THE_DOC,
+  FETCH_CHECK_LIST,
+  POST_CHECKLIST
+} from '@/store/type/actions.type';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 import { mapState } from 'vuex';
+import Checkbox from '@/components/Checkbox/index.vue';
 
 @Component({
   components: {
-    VueMarkdown
+    VueMarkdown,
+    Checkbox
   }
 })
 export default class Preview extends Vue {
@@ -52,6 +53,10 @@ export default class Preview extends Vue {
       this.$store.dispatch(FETCH_THE_DOC, this.$route.params.docId);
       this.$store.dispatch(FETCH_CHECK_LIST, this.$route.params.docId);
     }
+  }
+
+  public submit() {
+    this.$store.dispatch(POST_CHECKLIST, this.$route.params.docId);
   }
 }
 </script>
