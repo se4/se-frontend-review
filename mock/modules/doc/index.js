@@ -27,12 +27,22 @@ router
   .route('/:docId/checklist')
   .get((req, res) => {
     res.send({
-      data: [CheckListItemSerializer()]
+      data: [
+        CheckListItemSerializer(),
+        CheckListItemSerializer(),
+        CheckListItemSerializer(),
+        CheckListItemSerializer()
+      ]
     });
   })
   .post((req, res) => {
     res.send({
-      data: [CheckListItemSerializer()]
+      data: [
+        CheckListItemSerializer(),
+        CheckListItemSerializer(),
+        CheckListItemSerializer(),
+        CheckListItemSerializer()
+      ]
     });
   });
 

@@ -8,7 +8,21 @@
             <vue-markdown>{{ docDetail.content }}</vue-markdown>
           </div>
         </div>
-        <div class="column is-8 has-background-white doc-content"></div>
+        <div class="column is-4">
+          <div v-for="item in checkList" :key="item.id" class="field">
+            <div class="label">{{item.content}}</div>
+            <div class="control">
+              <label class="radio">
+                <input type="radio" name="question">
+                无
+              </label>
+              <label class="radio">
+                <input type="radio" name="question">
+                有
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
