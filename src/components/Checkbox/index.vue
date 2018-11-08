@@ -1,5 +1,5 @@
 <template>
-  <div class="columns">
+  <!-- <div class="columns">
     <div class="column">
       <div
         @click="change(1)"
@@ -12,7 +12,7 @@
         :class="{'button':true,'is-danger':value===0,'is-small':true,'is-fullwidth':true}"
       >未完成</div>
     </div>
-  </div>
+  </div>-->
   <!-- <div class="control columns">
     <div class="column">
       <label class="radio">
@@ -27,15 +27,15 @@
       </label>
     </div>
   </div>-->
-  <!-- <label class="checkbox" @click="change">
+  <label class="checkbox" @click="change">
     <input
       type="checkbox"
       ref="checkboxElement"
       v-bind:checked="checked"
       @change="change($event.target)"
     >
-    {{label}}
-  </label>-->
+    {{name}}
+  </label>
 </template>
 
 <script lang="ts">
@@ -43,7 +43,7 @@ import { Component, Prop, Vue, Emit, Model } from 'vue-property-decorator';
 
 @Component
 export default class CustomedCheckbox extends Vue {
-  @Model('change', { type: Number, default: -1 })
+  @Model('change', { type: Number, default: 0 })
   public value: number;
 
   @Prop({ default: '' })
@@ -54,16 +54,16 @@ export default class CustomedCheckbox extends Vue {
   }
 
   @Emit()
-  public change(num: number) {
-    return num;
-  }
-  // public change(target: HTMLFormElement) {
-  //   if (target.checked) {
-  //     return 1;
-  //   } else {
-  //     return 0;
-  //   }
+  // public change(num: number) {
+  //   return num;
   // }
+  public change(target: HTMLFormElement) {
+    if (target.checked) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
 }
 </script>
 
