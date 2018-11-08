@@ -31,11 +31,11 @@ export default new Router({
       path: '/login',
       component: () => import('@/layout/LoginLayout.vue'),
       children: [
-        // {
-        //   path: '',
-        //   name: 'login',
-        //   component: () => import('@/views/Home.vue')
-        // },
+        {
+          path: '',
+          name: 'login',
+          component: () => import('@/views/Login/index.vue')
+        },
         {
           path: '/register',
           name: 'register',

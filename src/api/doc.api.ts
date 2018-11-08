@@ -40,7 +40,7 @@ export const postCheckList = (
   checklist: CheckListItemSerializer[]
 ): Promise<RequestResult<any, any, any>> => {
   return request(`${DOC_MODULE}/${docId}/checklist`, {
-    methods: 'post',
-    body: checklist
+    method: 'POST',
+    body: {data:checklist}
   });
 };

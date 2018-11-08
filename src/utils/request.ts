@@ -1,5 +1,5 @@
 // ant-design-pro request.js file with MIT license
-// import 'whatwg-fetch';
+import 'whatwg-fetch';
 import { getToken } from '@/utils/auth';
 import router from '@/router';
 import { LOGIN_ROUTER } from '@/router/name';
@@ -24,10 +24,10 @@ function checkStatus(response: any) {
  */
 export default async function request(
   url: string,
-  options?: any,
+  options?: any
 ): Promise<any> {
   const defaultOptions = {
-    credentials: 'include',
+    credentials: 'include'
   };
   const newOptions = { ...defaultOptions, ...options };
   if (
@@ -37,16 +37,16 @@ export default async function request(
   ) {
     if (!(newOptions.body instanceof FormData)) {
       newOptions.headers = {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json; charset=utf-8',
-        ...newOptions.headers,
+        ...newOptions.headers
       };
       newOptions.body = JSON.stringify(newOptions.body);
     } else {
       // newOptions.body is FormData
       newOptions.headers = {
         Accept: 'application/json',
-        ...newOptions.headers,
+        ...newOptions.headers
       };
     }
   }
@@ -55,7 +55,7 @@ export default async function request(
   if (localToken) {
     newOptions.headers = {
       Authorization: getToken(),
-      ...newOptions.headers,
+      ...newOptions.headers
     };
   }
 
@@ -79,7 +79,7 @@ export default async function request(
   const Authorization = await response.headers.get('Authorization');
   const body = await response.json();
   const header = {
-    Authorization,
+    Authorization
   };
 
   return { ...body, _header: header };
