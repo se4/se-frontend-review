@@ -43,6 +43,17 @@ export default new Router({
         }
       ]
     },
+      {
+          path: '/user',
+          component: () => import('@/layout/DefaultLayout.vue'),
+          children: [
+              {
+                  path: '/',
+                  name: 'user',
+                  component: () => import('@/views/User/index.vue')
+              }
+          ]
+      },
     {
       path: '/about',
       name: 'about',
@@ -51,6 +62,6 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "about" */ '@/views/About.vue')
-    }
+    },
   ]
 });
