@@ -1,6 +1,11 @@
 import * as ACTIONS from '@/store/type/actions.type.ts';
 import * as MUTATIONS from '@/store/type/mutations.type.ts';
-import { fetchDocList, fetchDoc, fetchCheckList } from '@/api/doc.api';
+import {
+  fetchDocList,
+  fetchDoc,
+  fetchCheckList,
+  postCheckList
+} from '@/api/doc.api';
 import { ActionTree, MutationTree, Module } from 'vuex';
 
 const docState: DocState = {
@@ -21,6 +26,12 @@ const actions: ActionTree<DocState, RootState> = {
   async [ACTIONS.FETCH_CHECK_LIST](context, docId: number) {
     const { data } = await fetchCheckList(docId);
     context.commit(MUTATIONS.SET_CHECK_LIST, data);
+  },
+  async [ACTIONS.POST_CHECKLIST](context, docId: number) {
+    await postCheckList(
+      docId,
+      context.state.checkList.slice(0)
+    );
   }
 };
 

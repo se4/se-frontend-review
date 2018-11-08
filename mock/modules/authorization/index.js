@@ -34,6 +34,7 @@ router.route('/login').post((req, res) => {
 router.route('/register').post((req, res) => {
   //注册
   res.send({});
+  // res.status(418).send({ message: '用户名已存在' });
 });
 
 module.exports = router;

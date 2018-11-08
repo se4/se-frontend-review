@@ -1,11 +1,13 @@
 <template>
   <section class="main-body">
-    <div class="logo">PREVIEW</div>
-    <div class="login_container">
-      <div class="container__main">
-        <router-view/>
+    <section class="main-body-section">
+      <div class="logo">PREVIEW</div>
+      <div class="login_container">
+        <div class="container__main">
+          <router-view/>
+        </div>
       </div>
-    </div>
+    </section>
     <footer class="footer is-white">
       <div class="content has-text-centered">@nju software</div>
     </footer>
@@ -34,7 +36,6 @@ export default class LoginLayout extends Vue {}
 }
 .login_container {
   width: 100%;
-  height: 100%;
   .container__main {
     max-width: 300px;
     margin: 0 auto;
@@ -50,7 +51,7 @@ export default class LoginLayout extends Vue {}
   display: flex;
   flex-direction: column;
   background: $white-bis;
-  .body-section {
+  .main-body-section {
     flex: 1;
   }
 }
