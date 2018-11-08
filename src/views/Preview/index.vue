@@ -2,17 +2,21 @@
   <div class="background">
     <div class="right-background"/>
     <div class="container">
-      <div class="columns is-desktop whole-content">
+      <div class="columns is-desktop">
         <div class="column is-8 has-background-white doc-content">
           <div v-if="docDetail.content" class="content">
             <vue-markdown>{{ docDetail.content }}</vue-markdown>
           </div>
         </div>
         <div class="column is-4">
-          <div v-for="item in checkList" :key="item.fid" class="field">
-            <div class="label">{{item.content}}</div>
+          <div
+            v-for="item in checkList"
+            :key="item.fid"
+            :class="{'notification':true,'is-success':item.level===1,'is-danger':item.level===0}"
+          >
+            <div>{{item.content}}</div>
             <div class="control">
-              <checkbox v-model="item.level" label="有"/>
+              <checkbox v-model="item.level" :name="item.fid"/>
             </div>
             <textarea v-model="item.comment" class="textarea" placeholder="e.g. Hello world"></textarea>
           </div>
@@ -66,10 +70,11 @@ export default class Preview extends Vue {
 .background {
   background-color: $white;
   position: relative;
+  padding-top: 20px;
 }
 
 .right-background {
-  background-color: $white-bis;
+  // background-color: $white-bis;
   bottom: 0;
   left: 50%;
   position: absolute;
@@ -78,19 +83,13 @@ export default class Preview extends Vue {
 }
 
 .doc-content {
-  margin-left: -3rem;
-  padding: 3rem;
-  height: 100%;
+  padding-top: 0.75rem;
 }
 
-.whole-content {
-  margin: 0;
-}
-
-@media screen and (max-width: 1088px) {
-  .doc-content {
-    padding: 1rem;
-    margin: 0;
-  }
-}
+// @media screen and (max-width: 1088px) {
+//   .doc-content {
+//     padding: 1rem;
+//     margin: 0;
+//   }
+// }
 </style>

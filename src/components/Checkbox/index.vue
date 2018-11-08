@@ -1,5 +1,33 @@
 <template>
-  <label class="checkbox" @click="change">
+  <div class="columns">
+    <div class="column">
+      <div
+        @click="change(1)"
+        :class="{'button':true,'is-success':value===1,'is-small':true,'is-fullwidth':true}"
+      >已完成</div>
+    </div>
+    <div class="column">
+      <div
+        @click="change(0)"
+        :class="{'button':true,'is-danger':value===0,'is-small':true,'is-fullwidth':true}"
+      >未完成</div>
+    </div>
+  </div>
+  <!-- <div class="control columns">
+    <div class="column">
+      <label class="radio">
+        <input type="radio" @change="change(1)" :name="name">
+        已完成
+      </label>
+    </div>
+    <div class="column">
+      <label class="radio">
+        <input type="radio" @change="change(0)" :name="name">
+        未完成
+      </label>
+    </div>
+  </div>-->
+  <!-- <label class="checkbox" @click="change">
     <input
       type="checkbox"
       ref="checkboxElement"
@@ -7,7 +35,7 @@
       @change="change($event.target)"
     >
     {{label}}
-  </label>
+  </label>-->
 </template>
 
 <script lang="ts">
@@ -15,24 +43,27 @@ import { Component, Prop, Vue, Emit, Model } from 'vue-property-decorator';
 
 @Component
 export default class CustomedCheckbox extends Vue {
-  @Model('change', { type: Number, default: 0 })
+  @Model('change', { type: Number, default: -1 })
   public value: number;
 
   @Prop({ default: '' })
-  private label: string;
+  private name: string | number;
 
   get checked() {
     return this.value === 0 ? false : true;
   }
 
   @Emit()
-  public change(target: HTMLFormElement) {
-    if (target.checked) {
-      return 1;
-    } else {
-      return 0;
-    }
+  public change(num: number) {
+    return num;
   }
+  // public change(target: HTMLFormElement) {
+  //   if (target.checked) {
+  //     return 1;
+  //   } else {
+  //     return 0;
+  //   }
+  // }
 }
 </script>
 

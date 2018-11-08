@@ -3,7 +3,7 @@ const userSerializer = require('./UserSerializer');
 
 module.exports = (type = 'GROUP', name = 'TagBaker') => {
   return {
-    id: makeId(),
+    fid: makeId(),
     content: '该项评价的内容, String',
     comment: '用户的备注, String',
     //未来会添加
