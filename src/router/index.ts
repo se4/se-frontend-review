@@ -24,7 +24,12 @@ export default new Router({
           path: '/preview/:docId',
           component: () => import('@/views/Preview/index.vue'),
           meta: { requiresAuth: true }
-        }
+        },
+          {
+            name: 'user',
+              path: 'user',
+              component: () => import('@/views/User/index.vue')
+          }
       ]
     },
     {
@@ -51,6 +56,6 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "about" */ '@/views/About.vue')
-    }
+    },
   ]
 });
