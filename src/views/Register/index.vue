@@ -105,7 +105,7 @@ import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 import { mapState } from 'vuex';
 import { REGISTER } from '@/store/type/actions.type';
 import { SET_REGISTER_ERROR } from '@/store/type/mutations.type';
-import { LOGIN_ROUTER } from '@/router/name';
+import { LOGIN_ROUTER } from '@/router/name'
 
 @Component
 export default class Register extends Vue {
@@ -156,7 +156,7 @@ export default class Register extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import '../../style/config';
+@import "../../style/config";
 .intro {
   color: $oc-gray-7;
   text-align: center;
