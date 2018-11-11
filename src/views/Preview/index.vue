@@ -55,6 +55,7 @@ import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 import { mapState } from 'vuex';
 import Checkbox from '@/components/Checkbox/index.vue';
 import JudgeItem from '@/components/JudgeItem/index.vue';
+import Affix from '@/components/Affix/index.vue';
 
 @Component({
   components: {
