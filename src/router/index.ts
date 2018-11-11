@@ -20,6 +20,11 @@ export default new Router({
           component: () => import('@/views/PreDoc.vue')
         },
         {
+          path: '/predoc/:docId',
+          name: 'preDocDetail',
+          component: () => import('@/views/SelfDoc/index.vue')
+        },
+        {
           name: 'preview',
           path: '/preview/:docId',
           component: () => import('@/views/Preview/index.vue'),

@@ -59,6 +59,9 @@ const mutations: MutationTree<DocState> = {
     myCheckedDocList: DocSimpleSerializer[]
   ) {
     state.myCheckedDocList = myCheckedDocList;
+  },
+  [MUTATIONS.SET_DOC_RESULT](state, docResults: DocResultSerializer[]) {
+    state.docResult = docResults;
   }
 };
 
