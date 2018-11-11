@@ -7,7 +7,7 @@ import { DOC_MODULE } from './_prefix';
 export const fetchDocList = (): Promise<
   RequestResult<DocSimpleSerializer[], any, any>
 > => {
-  return request(`${DOC_MODULE}`);
+  return request(`${DOC_MODULE}?self=true`);
 };
 
 /**
@@ -51,5 +51,5 @@ export const postCheckList = (
 export const fetchMyCheckedDocList = (): Promise<
   RequestResult<DocSimpleSerializer[], any, any>
 > => {
-  return request(`${DOC_MODULE}/self`);
+  return request(`${DOC_MODULE}?self=false`);
 };

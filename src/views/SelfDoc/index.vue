@@ -88,7 +88,7 @@ export default class Preview extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import 'bulma/sass/utilities/_all.sass';
+@import '~bulma/sass/utilities/_all.sass';
 .background {
   background-color: $white;
   position: relative;
@@ -108,11 +108,4 @@ export default class Preview extends Vue {
 .doc-content {
   padding-top: 0.75rem;
 }
-
-// @media screen and (max-width: 1088px) {
-//   .doc-content {
-//     padding: 1rem;
-//     margin: 0;
-//   }
-// }
 </style>

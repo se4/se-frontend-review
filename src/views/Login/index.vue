@@ -48,7 +48,7 @@
             >登 陆</button>
             <router-link
               :to="{name:'register'}"
-              :class="{'button':true, 'is-text':true, 'is-loading':submiting}"
+              :class="{'button':true, 'is-text':true}"
               type="submit"
             >没有账户，注册</router-link>
           </p>
