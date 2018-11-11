@@ -53,4 +53,11 @@ router.route('/:docId/result').get((req, res) => {
   });
 });
 
+router.route('/self').get((req, res) => {
+  //获得自己被别人评价过的文档列表
+  res.send({
+    data: [DocSimpleSerializer(), DocSimpleSerializer(), DocSimpleSerializer()]
+  });
+});
+
 module.exports = router;
