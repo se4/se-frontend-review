@@ -4,14 +4,17 @@ import {
   fetchDocList,
   fetchDoc,
   fetchCheckList,
-  postCheckList
+  postCheckList,
+  fetchMyCheckedDocList
 } from '@/api/doc.api';
 import { ActionTree, MutationTree, Module } from 'vuex';
+import { __await } from 'tslib';
 
 const docState: DocState = {
   docList: [],
   docDetail: {},
-  checkList: []
+  checkList: [],
+  myCheckedDocList: []
 };
 
 const actions: ActionTree<DocState, RootState> = {
@@ -28,10 +31,11 @@ const actions: ActionTree<DocState, RootState> = {
     context.commit(MUTATIONS.SET_CHECK_LIST, data);
   },
   async [ACTIONS.POST_CHECKLIST](context, docId: number) {
-    await postCheckList(
-      docId,
-      context.state.checkList.slice(0)
-    );
+    await postCheckList(docId, context.state.checkList.slice(0));
+  },
+  async [ACTIONS.FETCH_MY_CHECKED_DOC_LIST](context) {
+    const { data } = await fetchMyCheckedDocList();
+    await context.commit(MUTATIONS.SET_MY_CHECKED_DOC_LIST, data);
   }
 };
 
@@ -44,6 +48,12 @@ const mutations: MutationTree<DocState> = {
   },
   [MUTATIONS.SET_CHECK_LIST](state, checkList: CheckListItemSerializer[]) {
     state.checkList = checkList;
+  },
+  [MUTATIONS.SET_MY_CHECKED_DOC_LIST](
+    state,
+    myCheckedDocList: DocSimpleSerializer[]
+  ) {
+    state.myCheckedDocList = myCheckedDocList;
   }
 };
 

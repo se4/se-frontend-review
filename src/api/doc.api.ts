@@ -41,6 +41,15 @@ export const postCheckList = (
 ): Promise<RequestResult<any, any, any>> => {
   return request(`${DOC_MODULE}/${docId}/checklist`, {
     method: 'POST',
-    body: {data:checklist}
+    body: { data: checklist }
   });
+};
+
+/**
+ * 获得已经被别人评价过的文档列表
+ */
+export const fetchMyCheckedDocList = (): Promise<
+  RequestResult<DocSimpleSerializer[], any, any>
+> => {
+  return request(`${DOC_MODULE}/self`);
 };
