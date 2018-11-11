@@ -1,29 +1,42 @@
 <template>
   <div class="home">
-    <section class="hero is-info has-shadow">
+    <section class="hero">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title">Documents</h1>
-          <h2 class="subtitle">待完成文档</h2>
+          <h1 class="title">我的文档</h1>
         </div>
       </div>
     </section>
+    <div class="container">
+      <div class="columns is-multiline is-desktop">
+        <div v-for="item in docList" :key="item.id" class="column is-3">
+          <router-link :to="`/preview/${item.id}`" style="text-decoration: none;">
+            <div class="box">
+              <p>
+                <strong>{{item.filename}}</strong>
+              </p>
+              <div>{{item.owner.name}}</div>
+            </div>
+          </router-link>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-import { fetchDocList } from '@/api/doc.api';
+import { FETCH_DOC_LIST } from '@/store/type/actions.type';
+import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
+import { mapState } from 'vuex';
 
-@Component({
-  components: {
-    HelloWorld
-  }
-})
-export default class PreDoc extends Vue {
+@Component
+export default class Home extends Vue {
+  @State((state: RootState) => state.doc.docList)
+  public docList: DocSimpleSerializer[];
+
   public mounted() {
-    fetchDocList();
+    this.$store.dispatch(FETCH_DOC_LIST);
   }
 }
 </script>

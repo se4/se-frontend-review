@@ -27,7 +27,7 @@
                 class="input is-small"
                 type="text"
                 placeholder="填写备注"
-                style="box-shadow:none;border-color:none"
+                style="box-shadow:none;border-color:white"
               >
             </judge-item>
           </div>

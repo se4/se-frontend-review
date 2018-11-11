@@ -84,7 +84,7 @@
             >注 册</button>
             <router-link
               :to="{name:'login'}"
-              :class="{'button':true, 'is-text':true, 'is-loading':submiting}"
+              :class="{'button':true, 'is-text':true}"
               type="submit"
             >已有账户，登陆</router-link>
           </p>
