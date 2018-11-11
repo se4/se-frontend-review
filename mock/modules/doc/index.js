@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const DocSimpleSerializer = require('../../serializers/DocSerializer');
+const DocSimpleSerializer = require('../../serializers/DocSimpleSerializer');
 const CheckListItemSerializer = require('../../serializers/CheckListItemSerializer');
 
 router.route('').get((req, res) => {
