@@ -1,10 +1,11 @@
 const makeId = require('../util/makeId');
 const userSerializer = require('./UserSerializer');
 
-module.exports = (type = 'GROUP', name = 'TagBaker') => {
+module.exports = pass => {
   return {
     fid: makeId(),
     content: '该项评价的内容, String',
+    pass: pass || false,
     result: [
       {
         rid: 1,

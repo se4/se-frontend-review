@@ -6,7 +6,7 @@
         <nav class="breadcrumb" aria-label="breadcrumbs">
           <ul>
             <li>
-              <router-link :to="{name:'home'}">待完成文档</router-link>
+              <router-link :to="{name:'preDoc'}">我的文档</router-link>
             </li>
             <li>
               <router-link :to="`/predoc/${$route.params.docId}`">{{docDetail.filename}}</router-link>
@@ -25,15 +25,14 @@
           </div>
           <div class="column is-4">
             <div v-for="item in docResult" :key="item.fid">
-              <judge-item :success="item.level===1">
-                <checkbox v-model="item.level" :name="item.content"/>
-                <input
-                  v-model="item.comment"
-                  class="input is-small"
-                  type="text"
-                  placeholder="填写备注"
-                  style="box-shadow:none;border-color:white"
-                >
+              <judge-item :success="item.pass">
+                <strong>{{item.content}}</strong>
+                <div v-for="result in item.result" :key="result.rid">
+                  <strong style="padding-right:10px;color:grey">+ id:{{result.rid}}</strong>
+                  <span class="state state-success" v-if="result.pass">PASS</span>
+                  <span class="state state-error" v-else>ERROR</span>
+                  <span class="comments">{{result.comment}}</span>
+                </div>
               </judge-item>
             </div>
           </div>
@@ -77,10 +76,10 @@ export default class Preview extends Vue {
 
 <style lang="scss" scoped>
 @import '~bulma/sass/utilities/_all.sass';
+@import '@/style/_config.scss';
 .background {
   background-color: $white;
   position: relative;
-  padding-top: 20px;
   padding-bottom: 20px;
 }
 
@@ -95,5 +94,27 @@ export default class Preview extends Vue {
 
 .doc-content {
   padding-top: 0.75rem;
+}
+
+.state {
+  padding: 2px 5px;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 3px;
+  color: white;
+  background: $success;
+}
+
+.state-success {
+  background: $success;
+}
+.state-error {
+  background: $danger;
+}
+.comments {
+  padding-left: 10px;
+  display: inline-block;
+  color: $oc-gray-7;
+  font-size: 14px;
 }
 </style>
