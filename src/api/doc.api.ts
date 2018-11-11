@@ -53,3 +53,13 @@ export const fetchMyCheckedDocList = (): Promise<
 > => {
   return request(`${DOC_MODULE}?self=false`);
 };
+
+/**
+ * 获得文档结果
+ * @param docId 文档id
+ */
+export const fetchDocResult = (
+  docId: number
+): Promise<RequestResult<DocResultSerializer[], any, any>> => {
+  return request(`${DOC_MODULE}/${docId}/result`);
+};

@@ -11,7 +11,7 @@ export const FETCH_THE_DOC = 'fetchTheDoc';
 export const FETCH_CHECK_LIST = 'fetchCheckList';
 export const POST_CHECKLIST = 'postCheckList';
 export const FETCH_MY_CHECKED_DOC_LIST = 'fetchMyCheckedDocList';
-
+export const FETCH_DOC_RESULT = 'fetchDocResult';
 /**
  * 创建标签
  * @type {string}

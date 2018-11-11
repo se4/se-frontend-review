@@ -5,7 +5,8 @@ import {
   fetchDoc,
   fetchCheckList,
   postCheckList,
-  fetchMyCheckedDocList
+  fetchMyCheckedDocList,
+  fetchDocResult
 } from '@/api/doc.api';
 import { ActionTree, MutationTree, Module } from 'vuex';
 
@@ -14,7 +15,7 @@ const docState: DocState = {
   docDetail: {},
   checkList: [],
   myCheckedDocList: [],
-  docResult:{},
+  docResult: []
 };
 
 const actions: ActionTree<DocState, RootState> = {
@@ -37,9 +38,9 @@ const actions: ActionTree<DocState, RootState> = {
     const { data } = await fetchMyCheckedDocList();
     await context.commit(MUTATIONS.SET_MY_CHECKED_DOC_LIST, data);
   },
-  async [ACTIONS.FETCH_DOC_RESULT](context,docId:number){
-    const {data} = await fetchDocResult(docId);
-    context.commit(MUTATIONS.SET_DOC_RESULT,data)
+  async [ACTIONS.FETCH_DOC_RESULT](context, docId: number) {
+    const { data } = await fetchDocResult(docId);
+    context.commit(MUTATIONS.SET_DOC_RESULT, data);
   }
 };
 

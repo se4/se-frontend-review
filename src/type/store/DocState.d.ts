@@ -3,5 +3,5 @@ interface DocState {
   docDetail: DocSerializer | {};
   checkList: CheckListItemSerializer[];
   myCheckedDocList: DocSimpleSerializer[];
-  docResult: DocResultSerializer[]|{};
+  docResult: DocResultSerializer[];
 }
