@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-bind:class="{}">
     <slot>AffixedComponent</slot>
   </div>
 </template>
