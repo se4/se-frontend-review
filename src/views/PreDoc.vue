@@ -9,7 +9,7 @@
     </section>
     <div class="container">
       <div class="columns is-multiline is-desktop">
-        <div v-for="item in docList" :key="item.id" class="column is-3">
+        <div v-for="item in myDocList" :key="item.id" class="column is-3">
           <router-link :to="`/preview/${item.id}`" style="text-decoration: none;">
             <div class="box">
               <p>
@@ -26,17 +26,17 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { FETCH_DOC_LIST } from '@/store/type/actions.type';
+import { FETCH_MY_CHECKED_DOC_LIST } from '@/store/type/actions.type';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 import { mapState } from 'vuex';
 
 @Component
 export default class Home extends Vue {
-  @State((state: RootState) => state.doc.docList)
-  public docList: DocSimpleSerializer[];
+  @State((state: RootState) => state.doc.myCheckedDocList)
+  public myDocList: DocSimpleSerializer[];
 
   public mounted() {
-    this.$store.dispatch(FETCH_DOC_LIST);
+    this.$store.dispatch(FETCH_MY_CHECKED_DOC_LIST);
   }
 }
 </script>

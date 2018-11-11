@@ -67,18 +67,18 @@ import { FETCH_PROFILE } from '@/store/type/actions.type';
 
 @Component
 export default class User extends Vue {
-    @State((state: RootState)=> state.user.profile)
-    public userInfo: UserSerializer
+  @State((state: RootState) => state.user.profile)
+  public userInfo: UserSerializer;
 
-    public mounted() {
-        // not necessary
-        this.$store.dispatch(FETCH_PROFILE, '111');
-    }
+  public mounted() {
+    // not necessary
+    this.$store.dispatch(FETCH_PROFILE, '111');
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-@import 'bulma/sass/utilities/_all.sass';
+@import '~bulma/sass/utilities/_all.sass';
 .info-form {
   width: 100%;
   margin-top: 20px;
