@@ -23,21 +23,4 @@ router.route('/:userId').post((req, res) => {
   });
 });
 
-router.route('/:userId/password').post((req, res) => {
-  //修改密码
-  res.send({
-    data: UserSerializer(),
-    abilities: {
-      update: true
-    }
-  });
-});
-
-router.route('/:userId/tag').post((req, res) => {
-  //添加标签
-  res.send({
-    data: TagSerializer()
-  });
-});
-
 module.exports = router;
