@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const DocSimpleSerializer = require('../../serializers/DocSimpleSerializer');
 const DocSerializer = require('../../serializers/DocSerializer');
+const DocResultSerializer = require('../../serializers/DocResultSerializer');
 const CheckListItemSerializer = require('../../serializers/CheckListItemSerializer');
 
 router.route('').get((req, res) => {
   //获得文档列表
   res.send({
     data: [
-      DocSimpleSerializer(),
+      DocSimpleSerializer(req.query.self),
       DocSimpleSerializer(),
       DocSimpleSerializer(),
       DocSimpleSerializer(),
@@ -49,14 +50,7 @@ router
 
 router.route('/:docId/result').get((req, res) => {
   res.send({
-    data: {} //Result
-  });
-});
-
-router.route('/self').get((req, res) => {
-  //获得自己被别人评价过的文档列表
-  res.send({
-    data: [DocSimpleSerializer(), DocSimpleSerializer(), DocSimpleSerializer()]
+    data: [DocResultSerializer()] //Result
   });
 });
 

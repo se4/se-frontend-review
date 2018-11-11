@@ -15,5 +15,6 @@ export const SET_CURRENT_TAG = 'setCurrentTag';
 export const SET_DOC_LIST = 'setDocList';
 export const SET_THE_DOC = 'setTheDoc';
 export const SET_MY_CHECKED_DOC_LIST = 'setMyCheckedDocList';
+export const SET_DOC_RESULT = 'setDocResult';
 
 export const SET_CHECK_LIST = 'setCheckList';
