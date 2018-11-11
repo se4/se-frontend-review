@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const DocSimpleSerializer = require('../../serializers/DocSimpleSerializer');
 const DocSerializer = require('../../serializers/DocSerializer');
+const DocResultSerializer = require('../../serializers/DocResultSerializer');
 const CheckListItemSerializer = require('../../serializers/CheckListItemSerializer');
 
 router.route('').get((req, res) => {
@@ -49,7 +50,7 @@ router
 
 router.route('/:docId/result').get((req, res) => {
   res.send({
-    data: {} //Result
+    data: [DocResultSerializer()] //Result
   });
 });
 

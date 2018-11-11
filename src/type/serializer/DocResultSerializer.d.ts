@@ -1,9 +1,10 @@
-interface DocResultSerializer{
-  content: string,
-  result: DocResultItem[]
+interface DocResultSerializer {
+  content: string;
+  result: DocResultItem[];
+  fid: number;
 }
 
-interface DocResultItem{
-  level: number,
-  comment: string
+interface DocResultItem {
+  level: number;
+  comment: string;
 }
