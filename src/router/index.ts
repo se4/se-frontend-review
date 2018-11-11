@@ -20,16 +20,21 @@ export default new Router({
           component: () => import('@/views/PreDoc.vue')
         },
         {
+          path: '/predoc/:docId',
+          name: 'preDocDetail',
+          component: () => import('@/views/SelfDoc/index.vue')
+        },
+        {
           name: 'preview',
           path: '/preview/:docId',
           component: () => import('@/views/Preview/index.vue'),
           meta: { requiresAuth: true }
         },
-          {
-            name: 'user',
-              path: 'user',
-              component: () => import('@/views/User/index.vue')
-          }
+        {
+          name: 'user',
+          path: 'user',
+          component: () => import('@/views/User/index.vue')
+        }
       ]
     },
     {
@@ -56,6 +61,6 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "about" */ '@/views/About.vue')
-    },
+    }
   ]
 });

@@ -4,14 +4,18 @@ import {
   fetchDocList,
   fetchDoc,
   fetchCheckList,
-  postCheckList
+  postCheckList,
+  fetchMyCheckedDocList,
+  fetchDocResult
 } from '@/api/doc.api';
 import { ActionTree, MutationTree, Module } from 'vuex';
 
 const docState: DocState = {
   docList: [],
   docDetail: {},
-  checkList: []
+  checkList: [],
+  myCheckedDocList: [],
+  docResult: []
 };
 
 const actions: ActionTree<DocState, RootState> = {
@@ -28,10 +32,15 @@ const actions: ActionTree<DocState, RootState> = {
     context.commit(MUTATIONS.SET_CHECK_LIST, data);
   },
   async [ACTIONS.POST_CHECKLIST](context, docId: number) {
-    await postCheckList(
-      docId,
-      context.state.checkList.slice(0)
-    );
+    await postCheckList(docId, context.state.checkList.slice(0));
+  },
+  async [ACTIONS.FETCH_MY_CHECKED_DOC_LIST](context) {
+    const { data } = await fetchMyCheckedDocList();
+    await context.commit(MUTATIONS.SET_MY_CHECKED_DOC_LIST, data);
+  },
+  async [ACTIONS.FETCH_DOC_RESULT](context, docId: number) {
+    const { data } = await fetchDocResult(docId);
+    context.commit(MUTATIONS.SET_DOC_RESULT, data);
   }
 };
 
@@ -44,6 +53,15 @@ const mutations: MutationTree<DocState> = {
   },
   [MUTATIONS.SET_CHECK_LIST](state, checkList: CheckListItemSerializer[]) {
     state.checkList = checkList;
+  },
+  [MUTATIONS.SET_MY_CHECKED_DOC_LIST](
+    state,
+    myCheckedDocList: DocSimpleSerializer[]
+  ) {
+    state.myCheckedDocList = myCheckedDocList;
+  },
+  [MUTATIONS.SET_DOC_RESULT](state, docResults: DocResultSerializer[]) {
+    state.docResult = docResults;
   }
 };
 

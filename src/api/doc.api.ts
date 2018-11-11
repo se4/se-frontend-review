@@ -7,7 +7,7 @@ import { DOC_MODULE } from './_prefix';
 export const fetchDocList = (): Promise<
   RequestResult<DocSimpleSerializer[], any, any>
 > => {
-  return request(`${DOC_MODULE}`);
+  return request(`${DOC_MODULE}?self=true`);
 };
 
 /**
@@ -41,6 +41,25 @@ export const postCheckList = (
 ): Promise<RequestResult<any, any, any>> => {
   return request(`${DOC_MODULE}/${docId}/checklist`, {
     method: 'POST',
-    body: {data:checklist}
+    body: { data: checklist }
   });
+};
+
+/**
+ * 获得已经被别人评价过的文档列表
+ */
+export const fetchMyCheckedDocList = (): Promise<
+  RequestResult<DocSimpleSerializer[], any, any>
+> => {
+  return request(`${DOC_MODULE}?self=false`);
+};
+
+/**
+ * 获得文档结果
+ * @param docId 文档id
+ */
+export const fetchDocResult = (
+  docId: number
+): Promise<RequestResult<DocResultSerializer[], any, any>> => {
+  return request(`${DOC_MODULE}/${docId}/result`);
 };
