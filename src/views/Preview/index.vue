@@ -1,21 +1,27 @@
 <template>
   <div class="background">
     <div class="right-background"/>
-    <div class="container">
-      <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-          <li>
-            <router-link :to="{name:'home'}">待完成文档</router-link>
-          </li>
-          <li>
-            <router-link :to="`/preview/${$route.params.docId}`">{{docDetail.filename}}</router-link>
-          </li>
-        </ul>
-      </nav>
-      <div class="columns is-desktop">
-        <div class="column is-8 has-background-white doc-content">
-          <div v-if="docDetail.content" class="content">
-            <vue-markdown>{{ docDetail.content }}</vue-markdown>
+    <div class="section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+          <ul>
+            <li>
+              <router-link :to="{name:'home'}">待完成文档</router-link>
+            </li>
+            <li>
+              <router-link :to="`/preview/${$route.params.docId}`">{{docDetail.filename}}</router-link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="section" style="padding-top:0">
+      <div class="container">
+        <div class="columns is-desktop">
+          <div class="column is-8 has-background-white doc-content">
+            <div v-if="docDetail.content" class="content">
+              <vue-markdown>{{ docDetail.content }}</vue-markdown>
+            </div>
           </div>
         </div>
         <affixed>
@@ -96,7 +102,6 @@ export default class Preview extends Vue {
 .background {
   background-color: $white;
   position: relative;
-  padding-top: 20px;
   padding-bottom: 20px;
 }
 

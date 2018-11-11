@@ -10,7 +10,7 @@
     <div class="container">
       <div class="columns is-multiline is-desktop">
         <div v-for="item in myDocList" :key="item.id" class="column is-3">
-          <router-link :to="`/preview/${item.id}`" style="text-decoration: none;">
+          <router-link :to="`/predoc/${item.id}`" style="text-decoration: none;">
             <div class="box">
               <p>
                 <strong>{{item.filename}}</strong>
