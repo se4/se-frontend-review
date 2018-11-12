@@ -67,7 +67,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Validator } from 'vee-validate';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 import { mapState } from 'vuex';
-import { REGISTER, LOGIN } from '@/store/type/actions.type';
+import { REGISTER, LOGIN, LOGOUT } from '@/store/type/actions.type';
 import { SET_LOGIN_ERROR } from '@/store/type/mutations.type';
 import { LOGIN_ROUTER } from '@/router/name';
 
@@ -87,6 +87,7 @@ export default class Login extends Vue {
   public isLoginError: boolean;
 
   public mounted() {
+    this.$store.dispatch(LOGOUT);
     Validator.extend('truthy', {
       getMessage: (field: string): string => '两次输入的密码不相同',
       validate: (value: string): boolean => value === this.credentials.password

@@ -50,7 +50,7 @@ router
 
 router.route('/:docId/result').get((req, res) => {
   res.send({
-    data: [DocResultSerializer()] //Result
+    data: [DocResultSerializer(), DocResultSerializer(true)] //Result
   });
 });
 

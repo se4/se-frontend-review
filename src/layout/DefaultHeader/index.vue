@@ -2,7 +2,7 @@
   <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
-        <a class="navbar-item header-logo" href="https://bulma.io">MOOC</a>
+        <router-link class="navbar-item header-logo" :to="{name:'home'}">MOOC</router-link>
         <a
           role="button"
           @click="onClickExpand"
@@ -16,18 +16,35 @@
           <span aria-hidden="true"></span>
         </a>
       </div>
-      <div id="navbarBasicExample" :class="['navbar-menu',{'is-active':isActive}]">
+      <div :class="['navbar-menu',{'is-active':isActive}]">
         <div class="navbar-start">
           <router-link :to="{name:'home'}" class="navbar-item">待完成文档</router-link>
           <router-link :to="{name:'preDoc'}" class="navbar-item">已完成文档</router-link>
         </div>
         <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-primary">
-                <strong>Sign up</strong>
-              </a>
-              <a class="button is-light">Log in</a>
+          <div
+            style="cursor:pointer"
+            v-click-outside="onClickOutside"
+            @click="onAvatarClicked"
+            class="navbar-item"
+          >
+            <div class="dropdown is-right" :class="{'is-active':isAvatarActive}">
+              <div class="dropdown-trigger">
+                <figure class="image is-32x32">
+                  <img
+                    style="max-height:none"
+                    class="is-rounded"
+                    :src="profile.avatar||'https://bulma.io/images/placeholders/128x128.png'"
+                  >
+                </figure>
+              </div>
+              <div class="dropdown-menu" id="navbar-menu" role="menu">
+                <div class="dropdown-content">
+                  <router-link :to="{name:'user'}" class="dropdown-item">个人信息</router-link>
+                  <hr class="dropdown-divider">
+                  <router-link :to="{name:'login'}" class="dropdown-item">登出</router-link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -38,13 +55,28 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 
 @Component
 export default class DefaultHeader extends Vue {
-  public isActive: boolean = false;
+  private isActive: boolean = false;
+  private isAvatarActive: boolean = false;
+
+  @State((state: RootState) => state.user.profile)
+  private profile: UserState;
 
   public onClickExpand() {
     this.isActive = !this.isActive;
+  }
+
+  public onAvatarClicked() {
+    this.isAvatarActive = !this.isAvatarActive;
+  }
+
+  public onClickOutside() {
+    if (this.isAvatarActive === true) {
+      this.isAvatarActive = false;
+    }
   }
 }
 </script>
