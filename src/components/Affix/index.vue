@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:style="[sizeProps, positionProps]" v-on>
+  <div v-bind:style="[positionProps]">
     <slot>AffixedComponent</slot>
   </div>
 </template>
@@ -9,24 +9,43 @@ import { Component, Prop, Vue, Emit, Model } from 'vue-property-decorator';
 
 @Component
 export default class Affix extends Vue {
-  @Prop({default: 50, type: Number})
-  public offsetTop: number;
-  @Prop({default: 50, type: Number})
-  public offsetBottom: number;
   @Prop()
-  public width?: string;
-
-  private sizeProps = {
-    width: this.width ? this.width : '100%',
-    border: '1px black solid'
+  public offsetTop?: number;
+  @Prop()
+  public offsetBottom?: number;
+  @Prop()
+  public target?: () => Window | HTMLElement | null;// 相对谁静止
+  
+  public beforeMount() {
+    this.justifyPosition();
   }
 
-  private positionProps = {
-    position: 'relative',
+// 用户获取父元素的函数
+  public defaultGetTarget(): any {
+    if(this.target){
+      return this.target();
+    }
+    else{
+      return window;
+    }
   }
 
-  private justifyPosition(offset: number) {
+  private justifyPosition() {
+    const targetNode = this.defaultGetTarget();
+    const scrollTop = this.getScroll(targetNode)[0];
+    const affixNode = this.$el;
+    const elemOffset = this.getOffset(affixNode, targetNode);
+    const elemSize = {
+      width: affixNode.offsetWidth,
+      height: affixNode.offsetHeight,
+    };
     window.requestAnimationFrame(this.justifyPosition);
+  }
+
+  private getScroll(target: HTMLElement ): number[] {
+    const scrollTop = target.scrollTop;
+    const scrollLeft = target.scrollLeft;
+    return [scrollTop, scrollLeft];
   }
 
   private getTargetRect(target: HTMLElement): ClientRect {
@@ -37,8 +56,8 @@ export default class Affix extends Vue {
     const elemRect = element.getBoundingClientRect();
     const targetRect = this.getTargetRect(target);
 
-    const scrollTop = this.getSroll(target)[0];
-    const scrollLeft = this.getSroll(target)[1];
+    const scrollTop = this.getScroll(target)[0];
+    const scrollLeft = this.getScroll(target)[1];
 
     const docElem = window.document.body;
     const clientTop = docElem.clientTop || 0;
@@ -52,12 +71,6 @@ export default class Affix extends Vue {
       width: elemRect.width,
       height: elemRect.height,
     };
-  }
-
-  private getSroll(target: HTMLElement ): number[] {
-    const scrollTop = target.scrollTop;
-    const scrollLeft = target.scrollLeft;
-    return [scrollTop, scrollLeft];
   }
 
 }

@@ -24,28 +24,26 @@
             </div>
           </div>
         </div>
-        <affix width="300px">
-          <div class="column is-4">
-            <div v-for="item in checkList" :key="item.fid">
-              <judge-item :success="item.level===1">
-                <checkbox v-model="item.level" :name="item.content"/>
-                <input
-                  v-model="item.comment"
-                  class="input is-small"
-                  type="text"
-                  placeholder="填写备注"
-                  style="box-shadow:none;border-color:white"
-                >
-              </judge-item>
-            </div>
-            <div
-              @click="submit"
-              style="width:100%"
-              class="button is-primary"
-              :class="{'is-loading':submitLoading}"
-            >提 交</div>
+        <div class="column is-4">
+          <div v-for="item in checkList" :key="item.fid">
+            <judge-item :success="item.level===1">
+              <checkbox v-model="item.level" :name="item.content"/>
+              <input
+                v-model="item.comment"
+                class="input is-small"
+                type="text"
+                placeholder="填写备注"
+                style="box-shadow:none;border-color:white"
+              >
+            </judge-item>
           </div>
-        </affix>
+          <div
+            @click="submit"
+            style="width:100%"
+            class="button is-primary"
+            :class="{'is-loading':submitLoading}"
+          >提 交</div>
+        </div>
       </div>
     </div>
   </div>
