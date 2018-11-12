@@ -21,7 +21,7 @@ const actions: ActionTree<AuthState, RootState> = {
       context.commit(MUTATIONS.SET_PROFILE, data);
       context.commit(MUTATIONS.SET_AUTH, true);
       context.commit(MUTATIONS.SET_LOGIN_ERROR, false);
-      saveToken(Authorization, data);
+      saveToken(Authorization);
     } catch (e) {
       context.commit(MUTATIONS.SET_LOGIN_ERROR, true);
       context.commit(MUTATIONS.SET_AUTH, false);

@@ -34,7 +34,7 @@
                   <img
                     style="max-height:none"
                     class="is-rounded"
-                    src="https://bulma.io/images/placeholders/128x128.png"
+                    :src="profile.avatar||'https://bulma.io/images/placeholders/128x128.png'"
                   >
                 </figure>
               </div>
@@ -55,11 +55,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 
 @Component
 export default class DefaultHeader extends Vue {
   private isActive: boolean = false;
   private isAvatarActive: boolean = false;
+
+  @State((state: RootState) => state.user.profile)
+  private profile: UserState;
 
   public onClickExpand() {
     this.isActive = !this.isActive;
