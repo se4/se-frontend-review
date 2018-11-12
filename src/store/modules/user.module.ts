@@ -6,9 +6,10 @@ import {
   changePassword
 } from '@/api/user.api';
 import { ActionTree, MutationTree, Module } from 'vuex';
+import { saveUserProfile, getUserProfile } from '@/utils/auth';
 
 const userState: UserState = {
-  profile: {},
+  profile: getUserProfile() || {},
   update: false
 };
 
@@ -30,6 +31,7 @@ const actions: ActionTree<UserState, RootState> = {
 const mutations: MutationTree<UserState> = {
   [MUTATIONS.SET_PROFILE](state, userSerializer: UserSerializer) {
     state.profile = userSerializer;
+    saveUserProfile(userSerializer);
   },
   [MUTATIONS.SET_PROFILE_UPDATE](state, canUpdate = false) {
     state.update = canUpdate;

@@ -7,16 +7,17 @@ export const getToken = () => {
 
 export const saveToken = (
   token: string | undefined,
-  profile: UserSerializer | undefined
 ) => {
   if (token) {
     window.localStorage.setItem(ID_TOKEN_KEY, token);
   }
+};
 
+export const saveUserProfile=(profile: UserSerializer | undefined)=>{
   if (profile) {
     window.localStorage.setItem(USER_PROFILE, JSON.stringify(profile));
   }
-};
+}
 
 export const destroyToken = () => {
   window.localStorage.removeItem(ID_TOKEN_KEY);
