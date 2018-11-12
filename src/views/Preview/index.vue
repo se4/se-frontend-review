@@ -24,7 +24,7 @@
             </div>
           </div>
         </div>
-        <affixed>
+        <affix width="300px">
           <div class="column is-4">
             <div v-for="item in checkList" :key="item.fid">
               <judge-item :success="item.level===1">
@@ -45,7 +45,7 @@
               :class="{'is-loading':submitLoading}"
             >提 交</div>
           </div>
-        </affixed>
+        </affix>
       </div>
     </div>
   </div>
