@@ -23,26 +23,26 @@
               <vue-markdown>{{ docDetail.content }}</vue-markdown>
             </div>
           </div>
-          <div class="column is-4">
-            <div v-for="item in checkList" :key="item.fid">
-              <judge-item :success="item.level===1">
-                <checkbox v-model="item.level" :name="item.content"/>
-                <input
-                  v-model="item.comment"
-                  class="input is-small"
-                  type="text"
-                  placeholder="填写备注"
-                  style="box-shadow:none;border-color:white"
-                >
-              </judge-item>
-            </div>
-            <div
-              @click="submit"
-              style="width:100%"
-              class="button is-primary"
-              :class="{'is-loading':submitLoading}"
-            >提 交</div>
+        </div>
+        <div class="column is-4">
+          <div v-for="item in checkList" :key="item.fid">
+            <judge-item :success="item.level===1">
+              <checkbox v-model="item.level" :name="item.content"/>
+              <input
+                v-model="item.comment"
+                class="input is-small"
+                type="text"
+                placeholder="填写备注"
+                style="box-shadow:none;border-color:white"
+              >
+            </judge-item>
           </div>
+          <div
+            @click="submit"
+            style="width:100%"
+            class="button is-primary"
+            :class="{'is-loading':submitLoading}"
+          >提 交</div>
         </div>
       </div>
     </div>
@@ -61,12 +61,14 @@ import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 import { mapState } from 'vuex';
 import Checkbox from '@/components/Checkbox/index.vue';
 import JudgeItem from '@/components/JudgeItem/index.vue';
+import Affix from '@/components/Affix/index.vue';
 
 @Component({
   components: {
     VueMarkdown,
     Checkbox,
-    JudgeItem
+    JudgeItem,
+    Affix
   }
 })
 export default class Preview extends Vue {

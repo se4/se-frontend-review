@@ -8,7 +8,7 @@
             </div>
         </section>
         <section>
-            <container>
+            <div class="container">
                 <form class="info-form">
                     <div class="column is-10 is-offset-1">
                         <label class="label">用户id</label>
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </form>
-            </container>
+            </div>
         </section>
     </div>
 </template>
