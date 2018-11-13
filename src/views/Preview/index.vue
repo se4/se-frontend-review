@@ -45,12 +45,6 @@
               :class="{'is-loading':submitLoading}"
             >提 交</div>
           </div>
-          <div
-            @click="submit"
-            style="width:100%"
-            class="button is-primary"
-            :class="{'is-loading':submitLoading}"
-          >提 交</div>
         </div>
       </div>
     </div>

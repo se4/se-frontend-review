@@ -11,6 +11,7 @@
     sans-serif;
   word-wrap: break-word;
   word-break: break-all;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
