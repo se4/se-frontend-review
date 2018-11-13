@@ -28,7 +28,7 @@
               <judge-item :success="item.pass">
                 <strong>{{item.content}}</strong>
                 <div v-for="result in item.result" :key="result.rid">
-                  <strong style="padding-right:10px;color:grey">+ id:{{result.rid}}</strong>
+                  <strong style="padding-right:10px;color:grey">+ id:{{result.rid+'\t'}}</strong>
                   <span class="state state-success" v-if="result.level===1">PASS</span>
                   <span class="state state-error" v-else>ERROR</span>
                   <span class="comments">{{result.comment}}</span>
