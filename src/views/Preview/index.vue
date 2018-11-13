@@ -26,7 +26,9 @@
           <div class="column is-4">
             <div v-for="item in checkList" :key="item.fid">
               <judge-item :success="item.level===1">
-                <checkbox v-model="item.level" :name="item.content"/>
+                <div v-tooltip.top-start="item.explanation">
+                  <checkbox v-model="item.level" :name="item.content"/>
+                </div>
                 <input
                   v-model="item.comment"
                   class="input is-small"
