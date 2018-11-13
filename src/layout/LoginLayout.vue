@@ -1,7 +1,7 @@
 <template>
   <section class="main-body">
     <section class="main-body-section">
-      <div class="logo">PREVIEW</div>
+      <div class="logo">REVIEW</div>
       <div class="login_container">
         <div class="container__main">
           <router-view/>
